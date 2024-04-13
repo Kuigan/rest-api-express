@@ -101,3 +101,21 @@ notesRouter.put('/:id', (req: Request, res: Response) => { })
 
 // Delete - DELETE
 notesRouter.delete('/:id', (req: Request, res: Response) => { })
+
+
+// Aufgabe 3: Anwendung erweitern
+// Teil 2: Methode selbstständig implementieren
+// DELETE /notes/:id - Lösche eine Notiz mit der angegebenen ID
+notesRouter.delete('/:id', (req: Request, res: Response) => {
+  const id = parseInt(req.params.id)
+
+  // Versuche die Notiz zu löschen
+  const deleted = deleteNote(id)
+
+  // Wenn die Notiz gelöscht wurde, sende Statuscode 204, ansonsten 404
+  if (deleted) {
+    res.sendStatus(204)
+  } else {
+    res.status(404).send(`Note with ID ${id} not found`)
+  }
+})
